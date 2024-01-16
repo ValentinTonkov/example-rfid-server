@@ -32,12 +32,13 @@ public class RfidController {
     @RequestMapping
     public String getScannedRfidInfo(){
        if (entry != null){
-        return entry.rfid_ex() + " " + entry.operator();
+        return entry.rfid_ex() + " " + entry.operator() + " ip: " + entry.device_ip();
     } else {
            return "No scanned tags yet";
        }
    }
-/*
+
+   /*
     @PostMapping("/epc")
     public ResponseEntity<String> handleRfidPost(@RequestBody String body){
         if (responses.size() > 10){
@@ -47,14 +48,17 @@ public class RfidController {
         return new ResponseEntity<>("200", HttpStatus.OK);
     }
 */
-
     @PostMapping("/epc")
     public ResponseEntity<String> handleRfidInfoPost(@RequestBody RfidEntry entry){
-        System.out.printf("epc: %s, operator: %s\n", entry.rfid_ex(), entry.operator());
+        System.out.printf("epc: %s, operator: %s, dev_ip: %s\n", entry.rfid_ex(), entry.operator(), entry.device_ip());
         this.entry = entry;
         if (entry.rfid_ex().equals("E20000206712004017300C50")){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        if (responses.size() > 10){
+            responses.remove(0);
+        }
+        responses.add(entry.toString());
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 }

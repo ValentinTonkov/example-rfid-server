@@ -1,4 +1,10 @@
 package eu.tonkov.rfid.rfidtester.entities;
 
-public record RfidEntry(String operator, String device_id, String rfid_ex) {
+public record RfidEntry(String operator, String device_ip, String rfid_ex) {
+    @Override
+    public String toString() {
+        return  "operator='" + operator + '\'' +
+                ", device_ip='" + device_ip + '\'' +
+                ", rfid_ex='" + rfid_ex;
+    }
 }
