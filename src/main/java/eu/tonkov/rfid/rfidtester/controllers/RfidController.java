@@ -29,10 +29,14 @@ public class RfidController {
         return builder.toString();
     }
 
-    @RequestMapping("/info")
+    @RequestMapping
     public String getScannedRfidInfo(){
+       if (entry != null){
         return entry.rfid_ex() + " " + entry.operator();
-    }
+    } else {
+           return "No scanned tags yet";
+       }
+   }
 /*
     @PostMapping("/epc")
     public ResponseEntity<String> handleRfidPost(@RequestBody String body){
@@ -45,7 +49,7 @@ public class RfidController {
 */
 
     @PostMapping("/epc")
-    public ResponseEntity<String> handlePostRequest(@RequestBody RfidEntry entry){
+    public ResponseEntity<String> handleRfidInfoPost(@RequestBody RfidEntry entry){
         System.out.printf("epc: %s, operator: %s\n", entry.rfid_ex(), entry.operator());
         this.entry = entry;
         if (entry.rfid_ex().equals("E20000206712004017300C50")){
