@@ -38,8 +38,8 @@ public class RfidController {
        }
    }
 
-   /*
-    @PostMapping("/epc")
+
+    @PostMapping("/epc2")
     public ResponseEntity<String> handleRfidPost(@RequestBody String body){
         if (responses.size() > 10){
             responses.remove(0);
@@ -47,7 +47,7 @@ public class RfidController {
         responses.add(body);
         return new ResponseEntity<>("200", HttpStatus.OK);
     }
-*/
+
     @PostMapping("/epc")
     public ResponseEntity<String> handleRfidInfoPost(@RequestBody RfidEntry entry){
         System.out.printf("epc: %s, operator: %s, dev_ip: %s\n", entry.rfid_ex(), entry.operator(), entry.device_ip());
